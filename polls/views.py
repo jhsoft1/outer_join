@@ -1,4 +1,4 @@
-from django.db.models import F
+from django.db.models import F, FilteredRelation, Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
@@ -39,7 +39,9 @@ class VoterOuterListView(ListView):
     # queryset = Voter.objects.annotate(value=F('vote__value'), year=F('vote__year')).values('name', 'value', 'year')
     # queryset = Voter.objects.annotate(value=F('vote__value'), year=F('vote__year')).values().filter(name=user)
     def get_queryset(self):
-        return Voter.objects.annotate(value=F('vote__value'), year=F('vote__year')).values().filter(name=self.request.user)
+        # return Voter.objects.annotate(value=F('vote__value'), year=F('vote__year')).values().filter(name=self.request.user)
+        return Voter.objects.annotate(votes2020=FilteredRelation(
+            'vote', condition=Q(vote__year=2020))).values('name', 'votes2020__value', 'votes2020__year')
 
 
 class VoteCreate(CreateView):
