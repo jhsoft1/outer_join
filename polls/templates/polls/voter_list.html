@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voter</title>
+</head>
+<body>
+  <h1>Voter  List</h1>
+  {% if object_list %}
+  <ul>
+    {% for object in object_list %}
+      <li>
+        <a href="{{ object.get_absolute_url }}">{{ object }} </a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no voters in the library.</p>
+  {% endif %}
+</body>
+</html>

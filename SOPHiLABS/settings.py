@@ -55,7 +55,8 @@ ROOT_URLCONF = 'SOPHiLABS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'polls/templates']
+        # 'DIRS': [BASE_DIR / 'polls/templates']
+        'DIRS': [BASE_DIR / 'templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
