@@ -5,17 +5,21 @@
     <title>Voter</title>
 </head>
 <body>
-  <h1>Voter  List</h1>
+  <h1>Year List</h1>
   {% if object_list %}
   <ul>
     {% for object in object_list %}
       <li>
-        <a href="{{ object.get_absolute_url }}">{{ object }} </a>
+          {% if object.my_votes__value %}
+            <a href="/polls/vote/{{ object.my_votes__id }}/update-value/">{{object}}</a>
+          {% else %}
+            <a href="/polls/vote/create/{{ object.vote_year }}">{{object}}</a>
+          {% endif %}
       </li>
     {% endfor %}
   </ul>
   {% else %}
-    <p>There are no voters in the library.</p>
+    <p>There are no years in the library.</p>
   {% endif %}
 </body>
 </html>

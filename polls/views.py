@@ -43,7 +43,8 @@ class YearOuterListView(ListView):
         # return Voter.objects.annotate(votes2020=FilteredRelation(
         #     'vote', condition=Q(vote__year=2020))).values('name', 'votes2020__value', 'votes2020__year')
         return Year.objects.annotate(my_votes=FilteredRelation(
-            'vote', condition=Q(vote__voter=self.request.user))).values('vote_year', 'my_votes__value', 'my_votes__year')
+            'vote', condition=Q(vote__voter=self.request.user))).values('vote_year', 'my_votes__value',
+                                                                        'my_votes__id')
 
 
 class VoteCreate(CreateView):
@@ -92,3 +93,27 @@ def index(request):
 
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
+
+
+class VoteYearCreate(CreateView):
+    model = Vote
+    fields = ['value']
+
+    def form_valid(self, form):
+        form.instance.voter = self.request.user
+        # print(form.instance.year)
+        # print(self.kwargs['pk'])
+        form.instance.year = Year(self.kwargs['pk'])
+        return super().form_valid(form)
+
+
+class VoteValueUpdate(UpdateView):
+    model = Vote
+    fields = ['value']
+
+    # def form_valid(self, form):
+    #     form.instance.voter = self.request.user
+    #     # print(form.instance.year)
+    #     # print(self.kwargs['pk'])
+    #     form.instance.year = Year(self.kwargs['pk'])
+    #     return super().form_valid(form)

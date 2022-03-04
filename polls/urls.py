@@ -12,8 +12,10 @@ urlpatterns = [
     path('year/<str:pk>/delete/', views.YearDelete.as_view(), name='year-delete'),
     path('votes/', views.VoteListView.as_view(), name='votes'),
     path('vote/create/', views.VoteCreate.as_view(), name='vote-create'),
+    path('vote/create/<int:year>', views.VoteYearCreate.as_view(), name='vote-year-create'),
     path('vote/<int:pk>', views.VoteDetailView.as_view(), name='vote-detail'),
     path('vote/<int:pk>/update/', views.VoteUpdate.as_view(), name='vote-update'),
+    path('vote/<int:pk>/update-value/', views.VoteValueUpdate.as_view(), name='vote-value-update'),
     path('vote/<int:pk>/delete/', views.VoteDelete.as_view(), name='vote-delete'),
     path('years-outer/', views.YearOuterListView.as_view(), name='years-outer'),
 ]
