@@ -103,7 +103,7 @@ class VoteYearCreate(CreateView):
         form.instance.voter = self.request.user
         # print(form.instance.year)
         # print(self.kwargs['pk'])
-        form.instance.year = Year(self.kwargs['pk'])
+        form.instance.year = Year(self.kwargs['year'])
         return super().form_valid(form)
 
 
